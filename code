@@ -1,0 +1,55 @@
+import java.util.Arrays;
+import java.util.Random;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		// Skapar värden
+		int n = (new Random().nextInt(10)+1);
+		int m = (new Random().nextInt(10)+1);
+		int [] NtoY = new int[n];
+		int [] XtoM = new int[m];
+		int [][] vagar = new int[m][n];		
+			for(int i = 0; i < m; i++)
+			{
+				XtoM [i] = (new Random().nextInt(10)+1);
+					for(int i2 = 0; i2 < n; i2++)
+					{	
+						vagar[i][i2] =  (new Random().nextInt(30)+1);
+					}
+			}	
+			for(int i = 0; i < n; i++)
+				NtoY[i] = (new Random().nextInt(10)+1);	
+			
+			// Utför beräkning 
+			berakning(m, n, NtoY, XtoM, vagar);
+	}
+	
+	public static void berakning(int m, int n, int[] NtoY, int[] XtoM, int[][] vagar)
+	{
+		int min = vagar[0][0] + XtoM[0] + NtoY[0];
+		String Zon = "station 1 och station 1. Vilket är på avståndet: " + min + ".";
+		for(int i = 0; i < m; i++)
+		{
+			for(int i2 = 0; i2 < n; i2++)
+			{
+				int kortvag = vagar[i][i2] + XtoM[i] + NtoY[i2];
+				System.out.println("Distance between Station " + (i+1) + " and station " + (i2+1) + " is: " + kortvag);
+				if(kortvag < min)
+				{
+					min = kortvag;
+					Zon = "station " + (i+1) + " and station " + (i2+1) + ". With a diistance of " + min + ".";			
+				}
+			}
+			System.out.println();
+		}
+		System.out.println(
+				  "Distance from X till M: " + Arrays.toString(XtoM)
+				+ "\nDistance from Y till N: " + Arrays.toString(NtoY) 
+				+ "\nNumber of stations in zone 1: " + m 
+				+ "\nNumber of stations in zone 2: " + n
+				+ "\nThe shortest path is via " + Zon
+				);
+	}
+}
